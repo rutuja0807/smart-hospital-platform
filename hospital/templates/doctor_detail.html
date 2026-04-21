@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Details</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #0b1c4d;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h2>{{ doctor.name }}</h2>
+
+    <p><b>Specialization:</b> {{ doctor.specialization }}</p>
+    <p><b>Experience:</b> {{ doctor.experience }} years</p>
+
+    {% if doctor.available %}
+        <p style="color:green;">Available</p>
+    {% else %}
+        <p style="color:red;">Not Available</p>
+    {% endif %}
+
+    <a href="/appointment/" class="btn">Book Appointment</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Registration</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, #e8f5f3, #f6fbfa);
+        }
+
+        .container {
+            width: 400px;
+            margin: 80px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        h2 {
+            color: #2c7a7b;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2c7a7b;
+            box-shadow: 0 0 5px rgba(44,122,123,0.3);
+        }
+
+        button {
+            width: 95%;
+            padding: 12px;
+            background: #2c7a7b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #225e5f;
+        }
+
+        .link {
+            margin-top: 15px;
+            display: block;
+            font-size: 14px;
+        }
+
+        .link a {
+            text-decoration: none;
+            color: #2c7a7b;
+            font-weight: bold;
+        }
+
+        .icon {
+            font-size: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="icon">🧾</div>
+    <h2>Patient Registration</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+        <input type="text" name="phone" placeholder="Phone Number" required>
+        <input type="number" name="age" placeholder="Age">
+
+        <button type="submit">Register Patient</button>
+    </form>
+
+    <div class="link">
+        Already registered? <a href="/login/">Login here</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Hospital | Expert Care</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0d9488;
+            --primary-dark: #0f766e;
+            --secondary: #1e293b;
+            --accent: #22c55e;
+            --bg-body: #f8fafc;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        .btn-login {
+            background: var(--primary);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+        .btn-login:hover { background: var(--primary-dark); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 550px;
+            background: linear-gradient(rgba(15, 118, 110, 0.75), rgba(15, 118, 110, 0.85)), 
+                        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=2053');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 { font-size: 52px; font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .hero p { font-size: 18px; margin-bottom: 30px; opacity: 0.9; max-width: 600px; }
+
+        /* Floating Search */
+        .search-container {
+            background: white;
+            padding: 8px;
+            border-radius: 60px;
+            display: flex;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            outline: none;
+            border-radius: 50px;
+            color: var(--secondary);
+        }
+
+        .search-container button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .search-container button:hover { background: var(--primary-dark); }
+
+        /* --- SERVICES / QUICK LINKS --- */
+        .services-wrapper {
+            max-width: 1100px;
+            margin: -70px auto 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .service-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .service-card:hover { transform: translateY(-12px); }
+        .service-card i { font-size: 45px; color: var(--primary); margin-bottom: 25px; display: block; }
+        .service-card h3 { margin-bottom: 12px; font-size: 20px; color: var(--secondary); }
+        .service-card p { font-size: 14px; color: #64748b; margin-bottom: 20px; }
+        .service-card a { 
+            text-decoration: none; 
+            color: var(--primary); 
+            font-weight: 700; 
+            font-size: 14px; 
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- DOCTOR RESULTS --- */
+        .results-section { padding: 80px 10%; background: #fff; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 32px; color: var(--secondary); margin-bottom: 10px; }
+        .section-title .underline { height: 4px; width: 60px; background: var(--primary); margin: 0 auto; border-radius: 2px; }
+
+        .doctor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .doc-card {
+            border: 1px solid #f1f5f9;
+            padding: 35px;
+            border-radius: 24px;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        .doc-card:hover { 
+            border-color: transparent; 
+            box-shadow: 0 20px 40px rgba(13, 148, 136, 0.1); 
+            transform: scale(1.02);
+        }
+
+        .doc-card img {
+            width: 110px; height: 110px;
+            border-radius: 50%; object-fit: cover;
+            margin-bottom: 20px; border: 5px solid #f8fafc;
+        }
+
+        .doc-card .tag {
+            background: #ccfbf1; color: var(--primary-dark);
+            font-size: 11px; font-weight: 800; padding: 5px 14px;
+            border-radius: 50px; display: inline-block; margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .btn-book {
+            display: block; margin-top: 25px; padding: 12px;
+            background: var(--accent); color: white;
+            text-decoration: none; border-radius: 12px; font-weight: 700;
+            transition: 0.3s;
+        }
+        .btn-book:hover { filter: brightness(1.1); box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3); }
+
+        footer {
+            background: var(--secondary);
+            color: #94a3b8;
+            padding: 50px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo"><i class="fa-solid fa-hospital-user"></i> Smart Hospital</a>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard/">Records</a>
+        <a href="/appointment/">Find Doctors</a>
+        {% if user.is_authenticated %}
+            <a href="/logout/" class="btn-login">Logout ({{ user.username }})</a>
+        {% else %}
+            <a href="/login/" class="btn-login">Login / Sign Up</a>
+        {% endif %}
+    </div>
+</nav>
+
+<section class="hero">
+    <h1>Compassionate Care for Life</h1>
+    <p>Connecting you with the world's best medical professionals, available for in-person or virtual consultations.</p>
+    
+    <form method="GET" action="{% url 'index' %}" class="search-container">
+        <input type="text" name="q" placeholder="Search by doctor name or specialization..." value="{{ request.GET.q }}">
+        <button type="submit">Find Care</button>
+    </form>
+</section>
+
+<section class="services-wrapper">
+    <div class="service-card">
+        <i class="fa-solid fa-calendar-check"></i>
+        <h3>Easy Booking</h3>
+        <p>Book confirmed slots with our specialists instantly without the wait.</p>
+        <a href="/appointment/">Schedule Now →</a>
+    </div>
+
+    <div class="service-card">
+        <i class="fa-solid fa-video"></i>
+        <h3>Tele-Health</h3>
+        <p>Secure, high-definition video consultations from any device, anywhere.</p>
+        <a href="/appointment/">Start Consultation →</a>
+    </div>
+
+    <div class="service-card">
+        <i class="fa-solid fa-file-medical"></i>
+        <h3>Digital Records</h3>
+        <p>Safe and easy access to your health history and prescriptions.</p>
+        <a href="/dashboard/">View Dashboard →</a>
+    </div>
+</section>
+
+{% if request.GET.q %}
+<section class="results-section">
+    <div class="section-title">
+        <h2>Recommended Specialists</h2>
+        <div class="underline"></div>
+    </div>
+
+    <div class="doctor-grid">
+        {% for doctor in doctors %}
+        <div class="doc-card">
+            <span class="tag">{{ doctor.specialization }}</span>
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ doctor.name }}" alt="Doctor Profile">
+            <h3>Dr. {{ doctor.name }}</h3>
+            <p style="color: #64748b; font-size: 14px;">{{ doctor.experience }} Years of Experience</p>
+            <p style="margin-top:10px; font-weight: 700; color: var(--primary); font-size: 18px;">$50 <span style="font-size: 12px; font-weight: 400; color: #94a3b8;">/ visit</span></p>
+            <a href="/appointment/" class="btn-book">Book Appointment</a>
+        </div>
+        {% empty %}
+        <div style="grid-column: 1/-1; text-align: center; padding: 60px;">
+            <i class="fa-solid fa-magnifying-glass" style="font-size: 40px; color: #cbd5e1; margin-bottom: 20px;"></i>
+            <p style="color: #64748b;">No doctors found matching "{{ request.GET.q }}". Try a different specialization.</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<footer>
+    <p>&copy; 2026 Smart Hospital System. Your Health, Our Priority.</p>
+    <p style="margin-top: 10px; font-size: 12px; opacity: 0.6;">Contact Us: support@smarthospital.com | +1 800 555 0199</p>
+</footer>
+
+</body>
+</html>

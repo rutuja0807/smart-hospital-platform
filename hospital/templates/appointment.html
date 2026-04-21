@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Hospital | Manage Appointments</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #14b8a6;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --danger: #ef4444;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+        }
+
+        /* --- HEADER --- */
+        .navbar {
+            background: var(--primary);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .navbar h2 {
+            color: white;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+
+        .btn-logout:hover { background: white; color: var(--primary); }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* --- DASHBOARD HEADER --- */
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 { font-size: 28px; font-weight: 700; color: var(--text-main); }
+        .page-header p { color: var(--text-muted); font-size: 15px; }
+
+        /* --- BOOKING CARD (Horizontal Bar) --- */
+        .booking-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .booking-card h2 { font-size: 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        .input-group label { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+
+        select, input {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+            background: #fdfdfd;
+        }
+
+        select:focus, input:focus { border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1); }
+
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover { background: var(--primary-light); transform: translateY(-2px); }
+
+        /* --- MODERN TABLE --- */
+        .table-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        th {
+            background: #f8fafc;
+            text-align: left;
+            padding: 18px 25px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td { padding: 20px 25px; border-bottom: 1px solid #f1f5f9; font-size: 15px; vertical-align: middle; }
+
+        tr:last-child td { border: none; }
+        tr:hover { background: #fcfcfd; }
+
+        .patient-info { display: flex; align-items: center; gap: 12px; }
+        .avatar { 
+            width: 35px; height: 35px; 
+            background: #ccfbf1; color: var(--primary); 
+            border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; font-weight: 700; font-size: 12px;
+        }
+
+        /* Status Badges */
+        .badge {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .booked { background: #dcfce7; color: #166534; }
+        .cancelled { background: #fee2e2; color: #991b1b; }
+
+        /* Buttons */
+        .action-btns { display: flex; gap: 10px; justify-content: center; }
+
+        .btn-icon {
+            width: 38px; height: 38px;
+            display: flex; align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-join { background: #e0f2f1; color: var(--primary); }
+        .btn-join:hover { background: var(--primary); color: white; }
+
+        .btn-cancel { background: #fff1f2; color: var(--danger); }
+        .btn-cancel:hover { background: var(--danger); color: white; }
+
+        .error-msg {
+            background: #fff1f2; color: var(--danger);
+            padding: 12px; border-radius: 10px;
+            margin-bottom: 20px; font-size: 14px; font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <h2><i class="fa-solid fa-house-medical"></i> Smart Hospital</h2>
+    <a href="/logout/" class="btn-logout">Sign Out</a>
+</nav>
+
+<div class="container">
+
+    <div class="page-header">
+        <h1>Appointment Management</h1>
+        <p>Schedule new visits and monitor patient consultations.</p>
+    </div>
+
+    <div class="booking-card">
+        <h2><i class="fa-solid fa-calendar-plus" style="color: var(--primary)"></i> Create New Entry</h2>
+
+        {% if error %}
+            <div class="error-msg"><i class="fa-solid fa-circle-exclamation"></i> {{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-grid">
+                <div class="input-group">
+                    <label>Patient Name</label>
+                    <select name="patient" required>
+                        <option value="">Choose Patient</option>
+                        {% for p in patients %}
+                            <option value="{{ p.id }}">{{ p.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Assigned Doctor</label>
+                    <select name="doctor" required>
+                        <option value="">Choose Doctor</option>
+                        {% for d in doctors %}
+                            <option value="{{ d.id }}">Dr. {{ d.name }} ({{ d.specialization }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Date</label>
+                    <input type="date" name="date" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Time</label>
+                    <input type="time" name="time" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Confirm Booking</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Schedule</th>
+                    <th>Status</th>
+                    <th style="text-align: center;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in appointments %}
+                <tr>
+                    <td>
+                        <div class="patient-info">
+                            <div class="avatar">{{ app.patient.name|slice:":1"|upper }}</div>
+                            <span style="font-weight: 600;">{{ app.patient.name }}</span>
+                        </div>
+                    </td>
+                    <td><span style="color: var(--text-muted)">Dr.</span> {{ app.doctor.name }}</td>
+                    <td>
+                        <div style="font-weight: 600;">{{ app.date }}</div>
+                        <div style="font-size: 12px; color: var(--text-muted);">{{ app.time }}</div>
+                    </td>
+                    <td>
+                        {% if app.status == "confirmed" %}
+                            <span class="badge booked">Confirmed</span>
+                        {% else %}
+                            <span class="badge cancelled">Cancelled</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="action-btns">
+                            {% if app.meeting_link and app.status == "confirmed" %}
+                                <a href="{{ app.meeting_link }}" target="_blank" class="btn-icon btn-join" title="Join Video">
+                                    <i class="fa-solid fa-video"></i>
+                                </a>
+                            {% endif %}
+                            
+                            {% if app.status == "confirmed" %}
+                                <a href="/cancel/{{ app.id }}/" class="btn-icon btn-cancel" title="Cancel">
+                                    <i class="fa-solid fa-calendar-xmark"></i>
+                                </a>
+                            {% else %}
+                                <span style="color: #cbd5e1; font-size: 12px;">No Actions</span>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 50px; color: var(--text-muted);">
+                        <i class="fa-solid fa-folder-open" style="font-size: 30px; display: block; margin-bottom: 10px; opacity: 0.3;"></i>
+                        No appointments scheduled for today.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
